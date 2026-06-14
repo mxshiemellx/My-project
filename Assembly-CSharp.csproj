@@ -52,6 +52,7 @@
     <Compile Include="Assets\Mini First Person Controller\Scripts\Components\FirstPersonAudio.cs" />
     <Compile Include="Assets\Scripts\DoorScript.cs" />
     <Compile Include="Assets\Scripts\KillBlock.cs" />
+    <Compile Include="Assets\Scripts\SpinAndMove.cs" />
     <Compile Include="Assets\Scripts\ScoreManager.cs" />
     <Compile Include="Assets\Scripts\Checkpoint.cs" />
     <Compile Include="Assets\Scripts\DisappearingPlatform.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Assets\Scripts\PlayerHealth.cs" />
     <Compile Include="Assets\Scripts\CollisionDetector.cs" />
     <Compile Include="Assets\Mini First Person Controller\Scripts\Components\Jump.cs" />
+    <Compile Include="Assets\Scripts\DiagonalCube.cs" />
     <Compile Include="Assets\Scripts\IslandCoinManager.cs" />
     <Compile Include="Assets\Scripts\Wind.cs" />
     <Compile Include="Assets\Scripts\script.cs" />
