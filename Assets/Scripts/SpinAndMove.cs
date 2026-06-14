@@ -1,12 +1,13 @@
 using UnityEngine;
 
-public class DiagonalCube : MonoBehaviour
+public class SpinAndMove : MonoBehaviour
 {
-    public float speed = 2f;
-    public float range = 3f;
+    public float spinSpeed = 90f;   // degrees per second
+    public float moveSpeed = 2f;    // how fast it moves left and right
+    public float moveRange = 3f;    // how far it moves left and right
 
-    public enum DiagonalAxis { XY, XZ, YZ }
-    public DiagonalAxis axis = DiagonalAxis.XY; // choose in Inspector
+    public enum MoveAxis { X, Z }
+    public MoveAxis axis = MoveAxis.X; // pick which axis to move on
 
     private Vector3 startPosition;
     private Rigidbody rb;
@@ -20,27 +21,19 @@ public class DiagonalCube : MonoBehaviour
 
     void FixedUpdate()
     {
-        float offset = Mathf.Sin(Time.time * speed) * range;
+        float offset = Mathf.Sin(Time.time * moveSpeed) * moveRange;
 
+        // Move left and right
         Vector3 newPosition = startPosition;
-
-        switch (axis)
-        {
-            case DiagonalAxis.XY:
-                newPosition.x = startPosition.x + offset;
-                newPosition.y = startPosition.y + offset;
-                break;
-            case DiagonalAxis.XZ:
-                newPosition.x = startPosition.x + offset;
-                newPosition.z = startPosition.z + offset;
-                break;
-            case DiagonalAxis.YZ:
-                newPosition.y = startPosition.y + offset;
-                newPosition.z = startPosition.z + offset;
-                break;
-        }
+        if (axis == MoveAxis.X)
+            newPosition.x = startPosition.x + offset;
+        else
+            newPosition.z = startPosition.z + offset;
 
         rb.MovePosition(newPosition);
+
+        // Spin at the same time
+        rb.MoveRotation(rb.rotation * Quaternion.Euler(0f, spinSpeed * Time.fixedDeltaTime, 0f));
     }
 
     private void OnCollisionEnter(Collision collision)

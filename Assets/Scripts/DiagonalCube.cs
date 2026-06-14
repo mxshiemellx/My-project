@@ -5,6 +5,9 @@ public class DiagonalCube : MonoBehaviour
     public float speed = 2f;
     public float range = 3f;
 
+    public enum DiagonalAxis { XY, XZ, YZ }
+    public DiagonalAxis axis = DiagonalAxis.XY; // choose in Inspector
+
     private Vector3 startPosition;
     private Rigidbody rb;
 
@@ -19,8 +22,24 @@ public class DiagonalCube : MonoBehaviour
     {
         float offset = Mathf.Sin(Time.time * speed) * range;
 
-        // moves diagonally by offsetting both Y and X at the same time
-        Vector3 newPosition = startPosition + new Vector3(offset, offset, 0f);
+        Vector3 newPosition = startPosition;
+
+        switch (axis)
+        {
+            case DiagonalAxis.XY:
+                newPosition.x = startPosition.x + offset;
+                newPosition.y = startPosition.y + offset;
+                break;
+            case DiagonalAxis.XZ:
+                newPosition.x = startPosition.x + offset;
+                newPosition.z = startPosition.z + offset;
+                break;
+            case DiagonalAxis.YZ:
+                newPosition.y = startPosition.y + offset;
+                newPosition.z = startPosition.z + offset;
+                break;
+        }
+
         rb.MovePosition(newPosition);
     }
 
