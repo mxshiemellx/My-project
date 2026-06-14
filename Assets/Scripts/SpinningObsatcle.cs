@@ -2,28 +2,18 @@ using UnityEngine;
 
 public class SpinningObstacle : MonoBehaviour
 {
-    public float spinSpeed = 45f; // degrees per second
+    public float spinSpeed = 90f;
+    private Rigidbody rb;
 
-    void Update()
+    void Start()
     {
-        transform.Rotate(0f, spinSpeed * Time.deltaTime, 0f);
+        rb = GetComponent<Rigidbody>();
+        rb.isKinematic = true;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    void FixedUpdate()
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            collision.gameObject.transform.SetParent(transform);
-            Debug.Log("Player is attached to spinning obstacle");
-        }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            collision.gameObject.transform.SetParent(null);
-            Debug.Log("Player is detached from spinning obstacle");
-        }
+        // Spin using Rigidbody so physics work correctly
+        rb.MoveRotation(rb.rotation * Quaternion.Euler(0f, spinSpeed * Time.fixedDeltaTime, 0f));
     }
 }
